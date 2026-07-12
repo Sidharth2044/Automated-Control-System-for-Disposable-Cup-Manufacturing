@@ -1,0 +1,163 @@
+PROGRAM CY_POWER_AXIS1
+VAR
+	MC_RS: MC_ReadStatus;
+MC_R	:MC_Reset;
+//MC_HI	:MC_HomeInit_ZeroPulse;
+MC_HO	:MC_Home;
+MC_Power_1	:MC_Power;
+s_PowerDetails_EI	:STRING;
+s_PowerDetails_EI2	:STRING;
+ud_OffsetFromZeroPuls_HI	:UDINT;
+ud_AbsoluteHomePosition_HO	:UDINT;
+w_ErrorCode_RS	:WORD;
+x_Enable_RS	:BOOL;
+x_StatusOk_RS	:BOOL;
+x_ErrorBit_RS	:BOOL;
+x_Errorstop_RS	:BOOL;
+x_Stopping_RS	:BOOL;
+x_VelocityZero_RS	:BOOL;
+x_PosTargetPositioning_RS	:BOOL;
+x_VelocityMode_RS	:BOOL;
+x_Homing_RS	:BOOL;
+x_GearOrCamMode_RS	:BOOL;
+x_CommandAborted_HO	:BOOL;
+x_Main_Axis_Enable	:BOOL;
+MC_MoveRelative_1	:MC_MoveRelative;
+x_start_pos	:BOOL;
+di_Main_distance	:DINT;
+ud_Main_vel	:UDINT;
+x_MainPosDone	:BOOL;
+V047	:BOOL;
+V048	:BOOL;
+V049	:WORD;
+//BM_ReadParameter_1	BM_ReadParameter
+x_Trig	:BOOL;
+i_Read_par	:INT;
+value1	:DWORD;
+si_value_length	:SINT;
+x_read	:BOOL;
+V058	:BOOL;
+V059	:WORD;
+//MC_ReadParameter_1	MC_ReadParameter
+x_Trig1	:BOOL;
+V064	:INT;
+V065	:BOOL;
+V066	:BOOL;
+V067	:WORD;
+V068	:DWORD;
+MC_MoveVelocity_1	:MC_MoveVelocity;
+x_Jog_Start	:BOOL;
+ud_Jog_speed	:UDINT;
+i_Jog_Direction	:INT;
+x_Jog_ok	:BOOL;
+x_JogAbort	:BOOL;
+x_JogError	:BOOL;
+w_JogerrorID	:WORD;
+x_Main_Power_OK	:BOOL;
+x_MainHomeStart	:BOOL;
+x_Main_HomingDone	:BOOL;
+x_MainPosStart	:BOOL;
+ud_Main_Speed	:UDINT;
+x_MainPosStartStckr	:BOOL;
+MC_MoveRelative_2	:MC_MoveRelative;
+x_MainDriveReset	:BOOL;
+x_temp	:BOOL;
+x_Errorstop_RS_Main	:BOOL;
+x_CuttingPositionStart	:BOOL;
+x_ParkingPositionStart	:BOOL;
+MC_MoveRelative_3	:MC_MoveRelative;
+x_ParkingPosDone	:BOOL;
+di_Main_distance_Parking	:DINT;
+MC_MoveAbsolute_1	:MC_MoveAbsolute;
+x_MainPosStartFlexi	:BOOL;
+MC_MoveRelative_4	:MC_MoveRelative;
+dw_Main_Motor_Temp	:DWORD;
+x_Main_Read_Ok	:BOOL;
+x_MainPosComplete	:BOOL;
+
+	MC_Stop_1: MC_Stop;
+	_Stop: BOOL;
+END_VAR
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PROGRAM CY_POWER_AXIS2
+VAR
+	//_Axis_2_TMPL	AXIS_TMPL
+//_Axis_2	AXIS_REF
+//MC_EI	:MC_ErrorInfo;
+//MC_EI2	:MC_ErrorInfo;
+MC_RS	:MC_ReadStatus;
+MC_R	:MC_Reset;
+//MC_HI	:MC_HomeInit_ZeroPulse;
+MC_HO	:MC_Home;
+MC_Power_1	:MC_Power;
+s_PowerDetails_EI	:STRING;
+s_PowerDetails_EI2	:STRING;
+ud_OffsetFromZeroPuls_HI	:UDINT;
+ud_AbsoluteHomePosition_HO	:UDINT;
+w_ErrorCode_RS	:WORD;
+x_Enable_RS	:BOOL;
+x_StatusOk_RS	:BOOL;
+x_ErrorBit_RS	:BOOL;
+x_Errorstop_RS	:BOOL;
+x_Stopping_RS	:BOOL;
+x_VelocityZero_RS	:BOOL;
+x_PosTargetPositioning_RS	:BOOL;
+x_VelocityMode_RS	:BOOL;
+x_Homing_RS	:BOOL;
+x_GearOrCamMode_RS	:BOOL;
+x_CommandAborted_HO	:BOOL;
+x_Index_Axis_Enable	:BOOL;
+MC_MoveRelative_1	:MC_MoveRelative;
+//_Axis_1	AXIS_REF
+x_start_pos:	BOOL;
+di_Main_distance	:DINT;
+ud_Main_vel	:UDINT;
+x_MainPosDone	:BOOL;
+x_Index_Power_OK	:BOOL;
+MC_MoveVelocity_1	:MC_MoveVelocity;
+x_Index_Jog_Start	:BOOL;
+ud_Index_Jog_speed	:UDINT;
+i_Index_Jog_Direction	:INT;
+x_Index_Jog_ok	:BOOL;
+x_Index_JogAbort	:BOOL;
+x_Index_JogError	:BOOL;
+w_Index_JogerrorID	:WORD;
+MC_MoveRelative_2	:MC_MoveRelative;
+x_IndexStart	:BOOL;
+di_IndexDistance	:DINT;
+ud_IndexSpeed	:UDINT;
+x_IndexOver	:BOOL;
+x_IndexAbort	:BOOL;
+x_IndexError	:BOOL;
+w_IndexErrID	:WORD;
+i_Index_AutoSpeed	:INT;
+ud_Index_AutoSpeed	:UDINT;
+x_IndexDriveReset	:BOOL;
+x_temp	:BOOL;
+x_Errorstop_RS_Index	:BOOL;
+//BM_ReadParameter_1	:BM_ReadParameter;
+dw_Index_Motor_Temp	:DWORD;
+x_trig	:BOOL;
+x_Index_Read_Ok	:BOOL;
+
+	x_Execute: BOOL;
+	MC_Stop_1: MC_Stop;
+	Axis_2_Stop: BOOL;
+END_VAR
