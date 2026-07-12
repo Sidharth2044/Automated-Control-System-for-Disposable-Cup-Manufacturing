@@ -1,0 +1,404 @@
+PROGRAM CY_MyApplication
+VAR
+	//_Axis_2_TMPL	:AXIS_TMPL;
+//_Axis_2	AXIS_REF
+//Axis_1_TMPL	AXIS_TMPL
+//_Axis_1	 AXIS_REF
+//_MyMaster_TMPL	MASTER_TMPL
+TON_1	:TON;
+t_Time1	:TIME;
+i_State	:INT;
+x_StartAllAxis	:BOOL;
+x_Done	:BOOL;
+x_TimerIn1 :BOOL;
+x_Timer1	: BOOL;
+x_UseGear :	BOOL;
+
+END_VAR
+
+
+
+
+
+
+
+(* --------------------------------------------------------
+Unit    :   CY_MyApplication
+Revision:   01.00
+Author  :   ng
+Date    :   2010-10-18
+
+History:
+Date         Rev.    Author   Description
+----------   -----   ------   -----------------------------
+2010-10-18   01.00   ng       Initial Version
+
+
+Description:                                                *)
+
+(* -------------------------------------------------------- *)
+x_StartAllAxis := x_StartAllAxis;
+x_UseGear       := x_UseGear;
+
+
+CASE (i_State) OF
+0:
+   (* -------------------------------------------------------- *)
+   (* State 0: wait x_StartAllAxis                             *)
+   (* -------------------------------------------------------- *)
+   IF (TRUE = x_StartAllAxis) THEN
+      x_TimerIn1  := FALSE;
+      i_State := INT#10;
+   ELSE
+      i_State := INT#0;
+   END_IF;
+
+
+   x_Main_Axis_Enable  := FALSE;
+   x_Index_Axis_Enable  := FALSE;
+
+
+10:
+   (* -------------------------------------------------------- *)
+   (* State 10: Execute MC_Reset                               *)
+   (* -------------------------------------------------------- *)
+   x_MainDriveReset   := TRUE;
+   x_IndexDriveReset   := TRUE;
+
+
+
+   x_TimerIn1  := TRUE;
+
+   i_State := INT#20;
+
+
+20:
+   (* -------------------------------------------------------- *)
+   (* State 20: Wait MC_Reset is done                          *)
+   (* -------------------------------------------------------- *)
+   x_Done   := TRUE;
+
+  // x_Done   := x_Done AND _Axis_1_TMPL._Reset._Out.x_Done;
+  // x_Done   := x_Done AND _Axis_2_TMPL._Reset._Out.x_Done;
+
+
+   IF (TRUE = x_Timer1) THEN
+      x_TimerIn1  := FALSE;
+      i_State     := INT#30;
+   ELSE
+      IF (TRUE = x_Done) THEN
+         x_TimerIn1  := FALSE;
+         i_State     := INT#30;
+      ELSE
+         i_State := INT#20;
+      END_IF;
+   END_IF;
+
+
+
+30:
+   (* -------------------------------------------------------- *)
+   (* State 30: Enable MC_Power                                *)
+   (* -------------------------------------------------------- *)
+    x_MainDriveReset   := FALSE;
+   x_IndexDriveReset   := FALSE;
+
+
+   x_Main_Axis_Enable  := TRUE;
+   x_Index_Axis_Enable  := TRUE;
+
+
+
+   x_TimerIn1  := TRUE;
+
+   i_State := INT#40;
+
+40:
+   (* -------------------------------------------------------- *)
+   (* State 40: Wait MC_Power is done                          *)
+   (* -------------------------------------------------------- *)
+   x_Done   := TRUE;
+
+  // x_Done   := x_Done AND _Axis_1_TMPL._Power._Out.x_Status;
+ //  x_Done   := x_Done AND _Axis_2_TMPL._Power._Out.x_Status;
+
+
+   IF (TRUE = x_Timer1) THEN
+      x_TimerIn1  := FALSE;
+      i_State     := INT#50;
+   ELSE
+      IF (TRUE = x_Done) THEN
+         x_TimerIn1  := FALSE;
+         i_State     := INT#50;
+      ELSE
+         i_State := INT#40;
+      END_IF;
+   END_IF;
+
+
+50:
+   (* -------------------------------------------------------- *)
+   (* State 50: Enable MC_HomeInit_ZeroPulse                   *)
+   (* -------------------------------------------------------- *)
+  // _Axis_1_TMPL._HomeInit._In.x_Execute := TRUE;
+  // _Axis_2_TMPL._HomeInit._In.x_Execute := TRUE;
+
+
+   i_State := INT#60;
+
+
+60:
+   (* -------------------------------------------------------- *)
+   (* State 60: Wait MC_HomeInit_ZeroPulse is done             *)
+   (* -------------------------------------------------------- *)
+   x_Done   := TRUE;
+
+  // x_Done   := x_Done AND (NOT _Axis_1_TMPL.x_Status OR _Axis_1_TMPL._HomeInit._Out.x_Installed);
+  // x_Done   := x_Done AND (NOT _Axis_2_TMPL._Power._Out.x_Status OR _Axis_2_TMPL._HomeInit._Out.x_Installed);
+
+
+   IF (TRUE = x_Done) THEN
+      i_State := INT#70;
+   ELSE
+      i_State := INT#60;
+   END_IF;
+
+
+70:
+   (* -------------------------------------------------------- *)
+   (* State 70: Enable MC_Home                                 *)
+   (* -------------------------------------------------------- *)
+   x_MainHomeStart      := TRUE;
+   x_Execute            := TRUE;
+
+
+  // _Axis_1_TMPL._HomeInit._In.x_Execute   := FALSE;
+   //_Axis_2_TMPL._HomeInit._In.x_Execute   := FALSE;
+
+
+
+   i_State := INT#80;
+
+
+80:
+   (* -------------------------------------------------------- *)
+   (* State 80: Wait MC_Home is done                           *)
+   (* -------------------------------------------------------- *)
+   x_Done   := TRUE;
+
+  // x_Done   := x_Done AND (NOT _Axis_1_TMPL._Power._Out.x_Status OR _Axis_1_TMPL._Home._Out.x_Done);
+  // x_Done   := x_Done AND (NOT _Axis_2_TMPL._Power._Out.x_Status OR _Axis_2_TMPL._Home._Out.x_Done);
+
+
+   IF (TRUE = x_Done) THEN
+      IF (TRUE = x_UseGear) THEN
+         (* Use MC_GearIn                                            *)
+         i_State := INT#210;
+      ELSE
+         (* Use MC_CamIn                                             *)
+         i_State := INT#90;
+      END_IF;
+   ELSE
+      i_State := INT#80;
+   END_IF;
+
+
+90:
+   (* -------------------------------------------------------- *)
+   (* State 90: Enable MC_CamTableSelect                       *)
+   (* -------------------------------------------------------- *)
+   //_Axis_1_TMPL._CamTableSelect._In.x_Execute_CTS   := TRUE;
+   //_Axis_2_TMPL._CamTableSelect._In.x_Execute_CTS   := TRUE;
+
+
+  // _Axis_1_TMPL._Home._In.x_Execute := FALSE;
+  // _Axis_2_TMPL._Home._In.x_Execute := FALSE;
+
+
+   i_State := INT#100;
+
+100:
+   (* -------------------------------------------------------- *)
+   (* State 100: Wait MC_CamTabelSelect is done                *)
+   (* -------------------------------------------------------- *)
+   x_Done   := TRUE;
+
+  // x_Done   := x_Done AND (NOT _Axis_1_TMPL._Power._Out.x_Status OR _Axis_1_TMPL._CamTableSelect._Out.x_Done);
+  // x_Done   := x_Done AND (NOT _Axis_2_TMPL._Power._Out.x_Status OR _Axis_2_TMPL._CamTableSelect._Out.x_Done);
+
+
+   IF (TRUE = x_Done) THEN
+      i_State := INT#110;
+   ELSE
+      i_State := INT#100;
+   END_IF;
+
+110:
+   (* -------------------------------------------------------- *)
+   (* State 110: Set CamTableID                                *)
+   (* -------------------------------------------------------- *)
+  // _Axis_1_TMPL._CamIn._In.u_CamTableID := UINT#1;
+  // _Axis_2_TMPL._CamIn._In.u_CamTableID := UINT#1;
+
+
+   //_Axis_1_TMPL._CamTableSelect._In.x_Execute_CTS   := FALSE;
+  // _Axis_2_TMPL._CamTableSelect._In.x_Execute_CTS   := FALSE;
+
+
+   i_State := INT#120;
+
+
+120:
+   (* -------------------------------------------------------- *)
+   (* State 120: Enable MC_MasterEngine                        *)
+   (* -------------------------------------------------------- *)
+  // _MyMaster_TMPL._IN.x_Enable      := TRUE;
+  // _MyMaster_TMPL._IN.di_Velocity   := DINT#0;
+
+  // _Axis_1_TMPL._CamIn._In.x_Execute := FALSE;
+   //_Axis_2_TMPL._CamIn._In.x_Execute := FALSE;
+
+
+   i_State := INT#130;
+
+
+130:
+   (* -------------------------------------------------------- *)
+   (* State 130: Wait MC_MasterEngine                          *)
+   (* -------------------------------------------------------- *)
+   //IF (TRUE = _MyMaster_TMPL._OUT.x_Done) THEN
+      i_State := INT#140;
+   ELSE
+      i_State := INT#130;
+   //END_IF;
+
+
+140:
+   (* -------------------------------------------------------- *)
+   (* State 140: Enable MC_CamIn                               *)
+   (* -------------------------------------------------------- *)
+   //_Axis_1_TMPL._CamIn._In.x_Execute := TRUE;
+   //_Axis_2_TMPL._CamIn._In.x_Execute := TRUE;
+
+
+   i_State := INT#150;
+
+
+150:
+   (* -------------------------------------------------------- *)
+   (* State 150: Wait MC_CamIn is done                         *)
+   (* -------------------------------------------------------- *)
+   x_Done   := TRUE;
+
+   //x_Done   := x_Done AND (NOT _Axis_1_TMPL._Power._Out.x_Status OR _Axis_1_TMPL._CamIn._Out.x_InSync);
+  // x_Done   := x_Done AND (NOT _Axis_2_TMPL._Power._Out.x_Status OR _Axis_2_TMPL._CamIn._Out.x_InSync);
+
+
+   IF (TRUE = x_Done) THEN
+      i_State := INT#160;
+   ELSE
+      i_State := INT#150;
+   END_IF;
+
+
+160:
+   (* -------------------------------------------------------- *)
+   (* State 160: Set MC_MasterEngine velocity                  *)
+   (* -------------------------------------------------------- *)
+   //_MyMaster_TMPL._IN.di_Velocity   := DINT#100;
+
+   i_State := INT#200;
+
+200:
+   (* -------------------------------------------------------- *)
+   (* State 200: Cam in is DONE!                               *)
+   (* -------------------------------------------------------- *)
+   ;
+
+
+210:
+   (* -------------------------------------------------------- *)
+   (* State 210: Enable MC_MasterEngine                        *)
+   (* -------------------------------------------------------- *)
+  // _MyMaster_TMPL._IN.x_Enable      := TRUE;
+  // _MyMaster_TMPL._IN.di_Velocity   := DINT#0;
+
+   //_Axis_1_TMPL._CamIn._In.x_Execute := FALSE;
+   //_Axis_2_TMPL._CamIn._In.x_Execute := FALSE;
+
+
+   i_State := INT#220;
+
+
+220:
+   (* -------------------------------------------------------- *)
+   (* State 220: Wait MC_MasterEngine                          *)
+   (* -------------------------------------------------------- *)
+   //IF (TRUE = _MyMaster_TMPL._OUT.x_Done) THEN
+      i_State := INT#230;
+  // ELSE
+      i_State := INT#220;
+  // END_IF;
+
+
+230:
+   (* -------------------------------------------------------- *)
+   (* State 230: Enable MC_GearIn                              *)
+   (* -------------------------------------------------------- *)
+  // _Axis_1_TMPL._GearIn._In.u_RatioDenominator  := UINT#1000;
+  // _Axis_2_TMPL._GearIn._In.u_RatioDenominator  := UINT#1000;
+
+
+  // _Axis_1_TMPL._GearIn._In.i_RatioNumerator    := INT#1000;
+  // _Axis_2_TMPL._GearIn._In.i_RatioNumerator    := INT#1000;
+
+
+  // _Axis_1_TMPL._GearIn._In.x_Execute           := TRUE;
+  // _Axis_2_TMPL._GearIn._In.x_Execute           := TRUE;
+
+
+   i_State := INT#240;
+
+
+240:
+   (* -------------------------------------------------------- *)
+   (* State 150: Wait MC_CamIn is done                         *)
+   (* -------------------------------------------------------- *)
+   x_Done   := TRUE;
+
+  // x_Done   := x_Done AND (NOT _Axis_1_TMPL._Power._Out.x_Status OR _Axis_1_TMPL._GearIn._Out.x_InGear);
+  // x_Done   := x_Done AND (NOT _Axis_2_TMPL._Power._Out.x_Status OR _Axis_2_TMPL._GearIn._Out.x_InGear);
+
+
+   IF (TRUE = x_Done) THEN
+      i_State := INT#250;
+   ELSE
+      i_State := INT#240;
+   END_IF;
+
+
+250:
+   (* -------------------------------------------------------- *)
+   (* State 250: Set MC_MasterEngine velocity                  *)
+   (* -------------------------------------------------------- *)
+   //_MyMaster_TMPL._IN.di_Velocity   := DINT#100;
+
+   i_State := INT#300;
+
+300:
+   (* -------------------------------------------------------- *)
+   (* State 300: MC_GearIn is DONE!                            *)
+   (* -------------------------------------------------------- *)
+   ;
+
+//ELSE
+   ;
+END_CASE;
+
+//TON_1(   IN := x_TimerIn1,
+   //      PT := t_Time1
+   //  );
+
+//x_Timer1 := TON_1.Q;
+
+(* ------------- End of CY_MyApplication ------------------ *)
