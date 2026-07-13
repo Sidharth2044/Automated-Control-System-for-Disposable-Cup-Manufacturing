@@ -2,7 +2,7 @@ PROGRAM CY_MyApplication
 VAR
 	//_Axis_2_TMPL	:AXIS_TMPL;
 //_Axis_2	AXIS_REF
-//Axis_1_TMPL	AXIS_TMPL
+_//Axis_1_TMPL	AXIS_TMPL
 //_Axis_1	 AXIS_REF
 //_MyMaster_TMPL	MASTER_TMPL
 TON_1	:TON;
@@ -15,11 +15,6 @@ x_Timer1	: BOOL;
 x_UseGear :	BOOL;
 
 END_VAR
-
-
-
-
-
 
 
 (* --------------------------------------------------------
