@@ -1,316 +1,3 @@
-PROGRAM CY_LOGIC
-VAR
-	TON_1:TON;
-TON1_done:BOOL;
-TON_1_ET:TIME;
-R_TRIG_1:R_TRIG	;
-x_Index_Axis_Enable:	BOOL;
-x_Main_Axis_Enable:BOOL;
-i_op_mode:INT;
-R_TRIG_2:R_TRIG;		
-F_TRIG_1:F_TRIG;			
-xFT_Auto_Manual:BOOL;		
-xRT_Auto_Manual:BOOL;	
-x_MachineReady:BOOL;
-IX_Auto_Manual_SW:BOOL;
-x_Jog_Start:BOOL;
-i_Jog_Direction:INT;
-ud_Jog_speed:UDINT;
-IX_Jog_Rev:BOOL;
-IX_Jog_Fwd:BOOL;
-x_Main_Power_OK:BOOL;
-x_Index_Power_OK:BOOL;
-x_Jog_Fwd_HMI:BOOL;
-x_Jog_Rev_HMI:BOOL;
-x_Jog_ok:BOOL;
-x_AutoManual_HMI:BOOL;
-x_Index_Jog_Fwd_HMI:BOOL;
-x_Index_Jog_Rev_HMI:BOOL;
-x_Index_Jog_Start:BOOL;
-ud_Index_Jog_speed:UDINT;
-i_Index_Jog_Direction:INT	;
-x_Index_Jog_ok:BOOL;
-x_AutoSelected:BOOL;
-x_ManualSelected: BOOL;
-x_MainHomeStart:BOOL;
-x_Main_HomingDone:BOOL;
-x_HomeStart_HMI:BOOL;
-x_HomingDone:BOOL;
-IX_Home_PB:BOOL;
-x_IndexStart:BOOL;
-x_IndexOver:BOOL;
-i_IndexAct_Cnt:INT	;
-x_InitIndexing_over:BOOL;
-T_IndexDly:TON	;
-T_MotorStartDly:TON	;
-Index_Delay:TIME	;
-Motor_StartDly:TIME;
-x_MainPosStart:BOOL;
-x_MainPosDone:BOOL;
-IX_Home_LS:BOOL;
-T_PlugDownDly:TON	;
-Plug_DownDly:TIME;
-x_PlugDownTime:BOOL;
-T_PlugDownTime:TON	;
-Plug_DownTime:TIME;
-T_FormingDly:TON	;
-Forming_DlyTime	:TIME;
-T_FormingOnTime:TON	;
-Forming_OnTime	:TIME;
-QX_Forming_air:	BOOL;
-x_VaccumDly	:BOOL;
-T_VaccumDly	:TON;
-Vaccum_DlyTime	:TIME;
-x_VaccumDlyOver:	BOOL;
-x_FormingDlyOver:	BOOL;
-T_VaccumOnTime	:TON;
-Vaccum_OnTime:	TIME;
-x_VaccumOver	:BOOL;
-x_FormingOver	:BOOL;
-x_MotorStartDLY	:BOOL;
-x_PlugDownDLY	:BOOL;
-x_FormingDly  :	BOOL;
-x_FormingOnTime	:BOOL;
-x_VaccumOnTime	:BOOL;
-IX_Cycle_Start	:BOOL;
-x_Init_Index_Start	:BOOL;
-x_StartIndexDLY	:BOOL;
-i_IndexSet_Cnt	:INT;
-IX_Plug_LS	:BOOL;
-x_NextCycleStart:	BOOL;
-x_CycleStartHMI	:BOOL;
-di_IndexDistance	:DINT;
-di_Main_distance	:DINT;
-rl_SetDegreeHMI	:REAL;
-rl_SetDistHMI	:REAL;
-rl_CountsPerMM	:REAL;
-rl_CountsPerDeg:	REAL;
-x_Init_ClampPosOver	:BOOL;
-rl_SetClampPos	:REAL;
-QX_Heater	:BOOL;
-T_EjectionDlyTime:	TON;
-T_EjectionOnTime	:TON;
-x_EjectionDlyTime	:BOOL;
-x_EjectionOnTime	:BOOL;
-Ejection_DlyTime	:TIME;
-Ejection_OnTime	:TIME;
-T_ScrapWDlyTime	:TON;
-T_ScrapWOnTime	:TON;
-x_ScrapWDlyTime	:BOOL;
-x_ScrapWOnTime	:BOOL;
-ScrapWinder_DlyTime	:TIME;
-ScrapWinder_OnTime	:TIME;
-QX_Ejector	:BOOL;
-QX_Scrap_Winder	:BOOL;
-TP_FormingOnTime	:TP;
-TP_VaccumOnTime	:TP;
-TP_EjectionOnTime	:TP;
-TP_ScrapWOnTime	:TP;
-TP_PlugDownTime	:TP;
-x_IndexComplete	:BOOL;
-x_MainPosComplete	:BOOL;
-rl_FullStokeDeg	:REAL;
-x_NewClampPos	:BOOL;
-rl_PrevClampPos	:REAL;
-rl_NewClampPos	:REAL;
-diff_pos	:REAL;
-new_pos	:DINT;
-IX_Index_PB	:BOOL;
-x_Index_Fwd_Jog_HMI	:BOOL;
-x_Index_Rev_Jog_HMI	:BOOL;
-i_Index_JogSpeed	:INT;
-QX_Plug_UpDown	:BOOL;
-QX_Vaccum	:BOOL;
-t_Index_Delay	:TIME;
-i_Index_AutoSpeed	:INT;
-IX_Emg_Stop	:BOOL;
-x_Cycle_Start_HMI	:BOOL;
-t_Plug_DownDly	:TIME;
-t_Plug_DownTime	:TIME;
-t_Plug_OnTime	:TIME;
-t_Forming_DlyTime	:TIME;
-t_Forming_OnTime	:TIME;
-t_Vaccum_DlyTime	:TIME;
-t_Vaccum_OnTime	:TIME;
-t_Ejection_DlyTime	:TIME;
-t_Ejection_OnTime	:TIME;
-t_ScrapWinder_OnTime	:TIME;
-t_ScrapWinder_DlyTime	:TIME;
-T_LidEjectionDlyTime	:TON;
-x_LidEjectionDlyTime	:BOOL;
-t_LidEjection_DlyTime	:TIME;
-TP_LidEjectionOnTime	:TP;
-t_LidEjection_OnTime	:TIME;
-QX_Ejection	:BOOL;
-QX_Lid_Eject	:BOOL;
-i_Index_Length	:INT;
-i_CountsPerMM	:INT;
-i_IndexDistance	:INT;
-rl_Index_Length	:REAL;
-t_Motor_StartDly	:TIME;
-i_SetClampPos	:INT;
-i_PrevClampPos	:INT;
-i_NewClampPos	:INT;
-IX_Index_LS	:BOOL;
-ud_Index_AutoSpeed	:UDINT;
-ud_Main_vel	:UDINT;
-i_Main_AutoSpeed	:INT;
-ud_Main_Speed	:UDINT;
-x_AutoCycle_On	:BOOL;
-x_HomingAtStop	:BOOL;
-IX_Cycle_Stop	:BOOL;
-x_Cycle_Stop_HMI	:BOOL;
-TON_Home_CycleStop	:TON;
-TON_MotorStartDlyStckr	:TON;
-x_MotorStartDlyStckr	:BOOL;
-t_MotorStartDlyStckr	:TIME;
-TON_MotorStartStckrDly	:TON;
-x_MotorStartStckrDly	:BOOL;
-x_StackerOn	:BOOL;
-x_Clamp_Mode	:BOOL;
-x_Stacker_Mode	:BOOL;
-x_Flexi_Mode	:BOOL;
-TON_MotorStartDly	:TON;
-x_MainPosStartStckr	:BOOL;
-x_Flexi_Mode_HMI	:BOOL;
-x_Stacker_Mode_HMI	:BOOL;
-x_Clamp_Mode_HMI	:BOOL;
-t_MotorStartStckrDly:	TIME;
-ET_MainPosStartStckr	:TIME;
-x_MainPosS	:BOOL;
-TON_2	:TON;
-t_MainPosStartStckr:	TIME;
-TON_MotorStckrDly	:TON;
-x_StackerDlyOver	:BOOL;
-x_MainPosCompleteStckr	:BOOL;
-x_temp	:BOOL;
-x_IndexDriveReset	:BOOL;
-x_Drive_Reset_HMI	:BOOL;
-x_MainDriveReset	:BOOL;
-TP_DriveReset	:TP;
-F_TRIG_MainDrivePowerEn	:F_TRIG;
-x_BothDriveEnable	:BOOL;
-F_TRIG_IndexDrivePowerEn	:F_TRIG;
-
-x_Enable_RS	:BOOL;
-TON_DriveStatusEn:	TON;
-TON_DriveStatusDis	:TON;
-t_DriveStatusEn	:TIME;
-t_DriveStatusDis:	TIME;
-x_Errorstop_RS_Index	:BOOL;
-x_Errorstop_RS_Main	:BOOL;
-x_Main_Drive_Fault	:BOOL;
-x_Index_Drive_Fault	:BOOL;
-R_TRIG_MainDrivePowerEn:	R_TRIG;
-R_TRIG_IndexDrivePowerEn:	R_TRIG;
-R_TRIG_AutoManualRst	:R_TRIG;
-x_CuttingPositionStart	:BOOL;
-x_ParkingPositionStart	:BOOL;
-x_ParkingPosDone	:BOOL;
-rl_SetCuttingPos	:REAL;
-di_Main_distance_Parking	:DINT;
-rl_SetParkingPos	:REAL;
-rl_PrevCuttingPos	:REAL;
-x_CuttingPosOver	:BOOL;
-rl_NewCuttingPos	:REAL;
-x_MainPosStartFlexi	:BOOL;
-x_NewCuttingPos	:BOOL;
-rl_SetClampPosChanged	:REAL;
-rl_SetCuttingPosChanged	:REAL;
-rl_SetParkingPosChanged	:REAL;
-rl_PrevParkingPos	:REAL;
-x_NewParkingPos	:BOOL;
-x_ParkingPosOver	:BOOL;
-rl_NewParkingPos	:REAL;
-TON_CycleStartDelay	:TON;
-x_Cycle_Start_Dly	:BOOL;
-t_Cycle_Start_Dly	:TIME;
-TON_CycleStartDly	:TON;
-x_IndexLengthComplete:	BOOL;
-i_Target_Production	:INT;
-i_Total_Production	:INT;
-i_Balance_Production	:INT;
-di_Balance_Production	:DINT;
-di_Total_Production	:DINT;
-di_Target_Production	:DINT;
-R_TRIG_Total_Production	:R_TRIG;
-i_No_of_Cavity	:INT;
-x_Total_Prod_Reset:	BOOL;
-R_TRIG_StrokesPerMinute	:R_TRIG;
-CTU_StrokesPerMinute	:CTU;
-IX_MainHome_LS	:BOOL;
-i_StrokesPerMinute:	INT;
-i_Strokes_Actual	:INT;
-TON_StrokesPerMinute:	TON;
-x_Total_Prod_AutoReset	:BOOL;
-R_TRIG_Cycle_Time	:R_TRIG;
-TON_Cycle_Time	:TON;
-x_Cycle_Time	:BOOL;
-t_Cycle_Time_Actual	:TIME;
-t_Cycle_Time_Past	:TIME;
-TON_Second_Timer	:TON;
-CTU_Second_Time	:CTU;
-CTU_Minute_Time	:CTU;
-CTU_Hour_Time	:CTU;
-i_Second_Time	:INT;
-i_Minute_Time	:INT;
-i_Hour_Time	:INT;
-TON_Shift_Prod_Timer	:TON;
-t_temp	:TIME;
-di_Shift_Production:	DINT;
-x_Shift_Prod_AutoReset	:BOOL;
-x_Shift_Prod_Reset	:BOOL;
-TP_Cycle_Time	:TP;
-t_Cycle_Time_Actual2	:TIME;
-F_TRIG_Cycle_Time	:F_TRIG;
-t_Shift_Prod_TimerET	:TIME;
-t_Cycle_Time_Act	:TIME;
-t_Cycle_Time_Actual_2:	TIME;
-TP_Buzzer1	:TP;
-x_Target_Prod_Achieved	:BOOL;
-QX_Buzzer1	:BOOL;
-QX_Buzzer2	:BOOL;
-IX_Plug_Down	:BOOL;
-IX_Plug_Up	:BOOL;
-x_PiercingHeater_OnOff	:BOOL;
-QX_Piercing	:BOOL;
-TP_PiercingHeater_On_Timer	:TP;
-TP_PiercingHeater_Off_Timer	:TP;
-F_TRIG_PiercingHeater_On_Timer	:F_TRIG;
-t_PiercingHeater_On_Time	:TIME;
-t_PiercingHeater_Off_Time	:TIME;
-F_TRIG_PiercingHeater_Of_Timer	:F_TRIG;
-R_TRIG_Piercing_Heater	:R_TRIG;
-TON_UnwinderDlyTime	:TON;
-x_UnwinderDly	:BOOL;
-t_Unwinder_DlyTime	:TIME;
-TP_UnwinderOnTime	:TP;
-x_Unwinder_HMI	:BOOL;
-QX_Unwinder	:BOOL;
-x_Vaccum_HMI	:BOOL;
-x_StrokesCounterReset	:BOOL;
-x_Trig	:BOOL;
-t_Plug_OnTime_Act	:TIME;
-IX_Unwinder_LS	:BOOL;
-
-
-END_VAR
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 (******** Power ON logic **********)
 
 TON_1(IN:=true,PT:=t#3s);
@@ -364,7 +51,7 @@ end_if;
 
 (******** Power ON logic After Drive Fault Reset **********)
 
-if (*_Axis_1_TMPL._Power._Out.x_Error and *) x_BothDriveEnable then
+IF _Axis_1_TMPL.bError AND x_BothDriveEnable THEN
 	(*x_Main_Axis_Enable := false;*)
 	x_Main_Drive_Fault := true;
 	QX_Buzzer2 := true;
@@ -385,7 +72,7 @@ if F_TRIG_MainDrivePowerEn.Q and x_BothDriveEnable then
    x_Main_Axis_Enable := true;
 end_if;
  
-IF (*_Axis_2_TMPL. Reset._Out.x_Error AND *) x_BothDriveEnable THEN
+IF _Axis_2_TMPL.bError AND x_BothDriveEnable THEN
 	(*x_Index_Axis_Enable := false;*)
 	x_Index_Drive_Fault := true;
 	QX_Buzzer2 := true;
@@ -465,7 +152,7 @@ end_if;
 
 (************* Auto - Manual Flag Set Reset  *******************)
 
-IF x_ManualSelected  (* OR _Axis_1_TMPL._Power._Out.x_Error or _Axis_2_TMPL._Power._Out.x_Error*)THEN
+IF x_ManualSelected OR _Axis_1_TMPL.bError OR _Axis_2_TMPL.bError THEN
    x_HomingDone := false;
 	x_InitIndexing_over := false;
 	x_StartIndexDLY := false;
@@ -519,3 +206,1129 @@ else;
 	 QX_Heater := false;
 end_if;
 
+(************* Manual Mode Jogging Operation ************)
+
+(*rl_SetDegreeHMI:=real#360.0;*)
+(*rl_CountsPerDeg:=real#3640.888; *) (* (20:1 GR * 65536) = 360 deg *)
+
+rl_CountsPerDeg:=REAL#3549.866;  (* (19.5:1 GR * 65536) = 360 deg * Main Motor)*)
+
+(*rl_CountsPerDeg:=real#3243.08; *) (* (17.8:1 GR * 65536) = 360 deg *)
+
+(*rl_CountsPerDeg:=real#3513.34; *)(* (19.2:1 GR * 65536) = 360 deg * Main Motor 2)*)
+
+(*rl_SetDistHMI  := real#300.0;*)
+rl_CountsPerMM := REAL#1128.82;  (* (7:1 GR * 65536) = 406.4 mm *) (* 32 Teeth, 0.5 inch pitch, 129.57 PCD* Index Motor)*)
+
+(*rl_SetClampPos := real#167.0;*)
+
+rl_Index_Length := int_to_real(i_Index_Length);  
+
+(*di_IndexDistance := real_to_dint(rl_CountsPerMM * rl_Index_Length);*)
+
+(*xxxxxxxxxxxxxxxxxxxxxxxxxx*) 
+
+Case (i_op_mode) of
+
+100:
+	if not IX_Auto_Manual_SW and x_MachineReady then;
+			i_op_mode := 110;
+	end_if;
+	
+110:
+   (********** Main Motor Jog Operation *********)
+   
+	if IX_Jog_Fwd or IX_Jog_Rev or x_Jog_Fwd_HMI or x_Jog_Rev_HMI then
+		x_Jog_Start := true;
+		ud_Jog_speed := udint#1092; (*2185 Inc = 200 RPM*) (*1092 Inc = 100 RPM*)
+	if IX_Jog_Fwd or x_Jog_Fwd_HMI then
+		  i_Jog_Direction := 1;
+	else;
+		  i_Jog_Direction := 0;	 
+	end_if;
+	  x_HomingDone := false;
+	end_if;
+	if x_Jog_Start and not IX_Jog_Fwd and not IX_Jog_Rev and not x_Jog_Fwd_HMI and not x_Jog_Rev_HMI then
+		i_op_mode := 120;
+	end_if;			
+
+   (********** Index Motor Jog Operation *********)
+	if IX_Index_PB or x_Index_Jog_Fwd_HMI or x_Index_Jog_Rev_HMI then
+		x_Index_Jog_Start := true;
+		ud_Index_Jog_speed := dint_to_udint((int_to_dint(i_Index_JogSpeed) * dint#65536) / dint#6000); 
+	if IX_Index_PB or x_Index_Jog_Fwd_HMI then
+		i_Index_Jog_Direction := 1;
+	else;
+		i_Index_Jog_Direction := 0;
+	end_if;
+   	(* x_HomingDone := false;*)
+	end_if;
+	if x_Index_Jog_Start and not IX_Index_PB and not x_Index_Jog_Fwd_HMI and not x_Index_Jog_Rev_HMI then
+		i_op_mode := 160;
+	end_if;
+
+	(********** Plug Up Down Operation *********)
+
+	if IX_Plug_Down and not IX_Plug_Up then
+		QX_Plug_UpDown := true;
+	end_if;
+
+	if IX_Plug_Up and not IX_Plug_Down then
+		QX_Plug_UpDown := false;
+	end_if;
+
+	x_PiercingHeater_OnOff := x_PiercingHeater_OnOff;
+
+120:
+		x_Jog_Start := false;
+		ud_Jog_speed := udint#0;
+		i_op_mode := 130;
+	
+130:
+	if not x_Jog_Start and not x_Jog_ok then
+		x_Jog_Start := true;
+		i_op_mode := 140;
+	end_if;
+
+140:
+	if x_Jog_Start and x_Jog_ok then
+		x_Jog_Start := false;
+		i_op_mode := 150;
+	end_if;
+
+150:
+	if not x_Jog_Start and not x_Jog_ok then
+		i_op_mode := 110;
+	end_if;
+
+160:
+		x_Index_Jog_Start := false;
+		ud_Index_Jog_speed := udint#0;
+		i_op_mode := 170;
+	
+170:
+	if not x_Index_Jog_Start and not x_Index_Jog_ok then
+		x_Index_Jog_Start := true;
+		i_op_mode := 180;
+	end_if;
+
+180:
+	if x_Index_Jog_Start and x_Index_Jog_ok then
+		x_Index_Jog_Start := false;
+		i_op_mode := 190;
+	end_if;
+
+190:
+	if not x_Index_Jog_Start and not x_Index_Jog_ok then
+		i_op_mode := 110;
+	end_if;	
+
+	
+(************* Auto Mode Homing Operation ************)							
+
+300:
+	if x_HomingDone then
+	(*i_op_mode := 500;
+	end_if;*)
+
+	if x_Clamp_Mode then
+	   i_op_mode := 500;
+	end_if;
+
+	if x_Flexi_Mode then
+		i_op_mode := 600;
+	end_if;
+
+	if x_Stacker_Mode then
+		i_op_mode := 700;
+	end_if;
+	end_if;
+
+	if ((IX_Home_PB or x_HomeStart_HMI or TON_Home_CycleStop.Q) and not x_HomingDone)then
+		x_MainHomeStart := true;
+		x_HomingAtStop := false;
+		x_Init_ClampPosOver := false;
+		x_CuttingPosOver := false;
+		x_ParkingPosOver := false;
+		x_ParkingPositionStart := false;
+		x_MotorStartDLY := false;
+		x_MainPosStartStckr := false;
+		x_MainPosCompleteStckr := false; 
+		x_CuttingPositionStart := false;
+		x_MainPosStartFlexi := false;
+		x_StartIndexDLY := false;
+		x_InitIndexing_over := false;
+		x_IndexComplete := false;
+		x_IndexLengthComplete := false;
+		x_MainPosComplete:= false;
+		x_PlugDownDLY := false; 
+		x_Cycle_Start_Dly := false;
+		i_IndexAct_Cnt := int#0;	
+		i_op_mode := 310;
+	end_if;
+	
+	x_PiercingHeater_OnOff := x_PiercingHeater_OnOff;	
+	
+310:
+	if x_MainHomeStart and x_Main_HomingDone then
+		x_MainHomeStart := false;
+		x_HomingDone := false;
+		(*x_Init_ClampPosOver := false;
+		x_CuttingPosOver := false;
+		x_ParkingPositionStart := false;*)
+		(*x_InitIndexing_over := false;*)
+		i_op_mode := 320;
+	end_if;	
+	
+320:
+	x_HomingDone := true;
+
+	if x_Clamp_Mode then
+	   i_op_mode := 500;
+	end_if;
+
+	if x_Flexi_Mode then
+		i_op_mode := 600;
+	end_if;
+
+	if x_Stacker_Mode then
+		i_op_mode := 700;
+	end_if;
+
+(************* Auto Mode Operation (Clamp Mode) ************)
+
+500:
+	if ((IX_Cycle_Start or x_Cycle_Start_HMI) and not x_InitIndexing_over(*and(IX_Home_LS and IX_Plug_LS)*)) then
+	   x_HomingDone := false;
+		x_MotorStartDLY := false;
+		x_Cycle_Start_Dly := true;
+		x_AutoCycle_On := true;
+		x_Cycle_Time := true;
+		(*x_Init_Index_Start := true;*)
+		(*i_IndexAct_Cnt:= 0;*)
+		(*x_InitIndexing_over := false;*)	
+		i_op_mode := 510;
+	end_if;
+
+	if ((IX_Cycle_Start or x_Cycle_Start_HMI) and x_InitIndexing_over(*and(IX_Home_LS and IX_Plug_LS)*)) then
+		x_HomingDone := false;
+		x_MotorStartDLY := false;
+		x_StartIndexDLY := true;
+		x_AutoCycle_On := true;
+		x_Cycle_Time := true;
+		(*x_Cycle_Start_Dly := true;*)	
+		(*x_Init_Index_Start := true;*)
+		(*i_IndexAct_Cnt:= 0;*)
+		(*x_InitIndexing_over := false;*)
+   end_if;
+
+	(*if x_AutoCycle_On and TON_CycleStartDly.Q then	
+		x_StartIndexDLY := true;
+	end_if;*)
+
+	if x_IndexOver and x_AutoCycle_On then
+		i_op_mode := 530;
+   end_if;
+
+	if x_Flexi_Mode then
+		i_op_mode := 600;
+	end_if;
+
+	if x_Stacker_Mode then
+		i_op_mode := 700;
+	end_if;
+
+	x_PiercingHeater_OnOff := x_PiercingHeater_OnOff;
+
+510:
+	if TON_CycleStartDly.Q then
+		x_StartIndexDLY := true;
+		di_IndexDistance := real_to_dint(rl_CountsPerMM * rl_Index_Length);
+		ud_Index_AutoSpeed := dint_to_udint((int_to_dint(i_Index_AutoSpeed) * dint#65536) / dint#60000); 
+      (*ud_Index_AutoSpeed := int_to_udint(i_Index_AutoSpeed);*)
+		i_op_mode := 520;
+	end_if;
+
+520:
+	if x_IndexOver then
+		x_IndexStart := false;
+		x_StartIndexDLY := false;
+		i_IndexAct_Cnt := i_IndexAct_Cnt + 1;
+	end_if;
+
+	if i_IndexAct_Cnt = i_IndexSet_Cnt then 
+		x_InitIndexing_over := true;
+		x_IndexLengthComplete := true;
+	   i_op_mode := 530;
+	  else;
+		i_op_mode := 510;
+	end_if;
+
+530:
+
+	ud_Main_Speed := dint_to_udint((int_to_dint(i_Main_AutoSpeed) * dint#65536) / dint#60000);
+
+	if not x_Init_ClampPosOver then
+	  	x_MotorStartDLY := true;
+		rl_PrevClampPos := rl_SetClampPos;
+		rl_NewClampPos := real#0.0;
+		di_Main_distance := real_to_dint(rl_SetClampPos * rl_CountsPerDeg); (*first clamp position*)
+      (*ud_Main_Speed := dint_to_udint((int_to_dint(i_Main_AutoSpeed) * dint#65536) / dint#6000);*)
+		i_op_mode := 540;
+	end_if;
+
+	if x_Init_ClampPosOver and rl_PrevClampPos <> rl_SetClampPos and not x_NewClampPos then
+		rl_NewClampPos := (rl_SetClampPos - rl_PrevClampPos);
+		(*diff_pos := rl_NewClampPos;*)
+		rl_PrevClampPos := rl_SetClampPos;
+		x_NewClampPos := true;
+	end_if;
+
+	if not IX_Plug_LS and x_Init_ClampPosOver and x_NextCycleStart then
+	   (*di_Main_distance := real_To_dint((real#360.0 + rl_NewClampPos) * rl_CountsPerDeg);*)
+		(*rl_NewClampPos := real#0.0;*)
+    (*if x_NewClampPos then
+		new_pos := di_Main_distance;
+		end_if;*)
+		x_NewClampPos := false;
+		x_Cycle_Time := true;
+		x_NextCycleStart := false;
+		i_op_mode := 540;
+	 end_if;
+
+	if (IX_Cycle_Stop or x_Cycle_Stop_HMI) and x_AutoCycle_On then
+		x_HomingAtStop := true;
+		x_AutoCycle_On := false;
+		x_Cycle_Start_Dly := false;
+		x_InitIndexing_over := false;
+		x_Cycle_Time := false;
+		i_IndexAct_Cnt := int#0;		
+		i_op_mode := 300;	
+	end_if;
+	
+	x_PiercingHeater_OnOff := x_PiercingHeater_OnOff;
+		
+540:	  		
+	IF (NOT IX_Index_LS AND x_MainPosStart (*and (x_IndexComplete or x_IndexLengthComplete) and x_MainPosComplete) (*and (x_IndexOver or not x_NextCycleStart )*)*)) THEN
+		x_PlugDownDLY := true;
+   	i_op_mode := 550;
+	end_if;
+
+	if (IX_Cycle_Stop or x_Cycle_Stop_HMI) and x_AutoCycle_On then
+		x_HomingAtStop := true;
+		x_AutoCycle_On := false;
+		x_Cycle_Start_Dly := false;
+		x_InitIndexing_over := false;
+		x_Cycle_Time := false;
+		i_IndexAct_Cnt := int#0;	
+		i_op_mode := 300;
+	end_if;			
+
+	(*x_NextCycleStart := false;*)
+
+550:
+	if T_PlugDownDly.Q and (x_IndexComplete or x_IndexLengthComplete) and x_MainPosComplete then
+		x_IndexLengthComplete := false;
+		x_IndexComplete := false;
+		x_MainPosComplete:= false;
+		x_FormingDly := true;
+		x_VaccumDly := true;	
+		(*	x_NextCycleStart := false; *)
+		x_Init_ClampPosOver := true;
+		di_Main_distance := real_To_dint((real#360.0 + rl_NewClampPos) * rl_CountsPerDeg);
+		rl_NewClampPos := real#0.0;
+		i_op_mode := 560;
+	end_if;
+	
+	if (IX_Cycle_Stop or x_Cycle_Stop_HMI) and x_AutoCycle_On then
+		x_HomingAtStop := true;
+		x_AutoCycle_On := false;
+		x_Cycle_Start_Dly := false;
+		x_InitIndexing_over := false;
+		x_Cycle_Time := false;
+		i_IndexAct_Cnt := int#0;	
+		i_op_mode := 300;
+	end_if;		
+
+560:
+	if T_PlugDownDly.Q and not TP_PlugDownTime.Q and IX_Plug_LS then
+		x_MotorStartDLY := true;
+		x_EjectionDlyTime := true;
+		x_ScrapWDlyTime := true;
+		x_UnwinderDly := true;
+		x_PlugDownDLY := false;
+		i_op_mode := 570;
+	end_if;
+	
+	if (IX_Cycle_Stop or x_Cycle_Stop_HMI) and x_AutoCycle_On then 
+		x_HomingAtStop := true;
+		x_AutoCycle_On := false;
+		x_Cycle_Start_Dly := false;
+		x_InitIndexing_over := false;
+		x_Cycle_Time := false;
+		i_IndexAct_Cnt := int#0;	
+		i_op_mode := 300;
+	end_if;		
+
+570:
+
+	ud_Index_AutoSpeed := dint_to_udint((int_to_dint(i_Index_AutoSpeed) * dint#65536) / dint#60000);
+	di_IndexDistance := real_to_dint(rl_CountsPerMM * rl_Index_Length);
+
+	if T_EjectionDlyTime.Q then
+		x_StartIndexDLY := true; 
+		x_EjectionDlyTime := false;
+		x_NextCycleStart := true;
+		x_Cycle_Time := false;
+		i_op_mode := 530;
+	end_if;
+
+	if (IX_Cycle_Stop or x_Cycle_Stop_HMI) and x_AutoCycle_On then
+		x_HomingAtStop := true;
+		x_AutoCycle_On := false;
+		x_Cycle_Start_Dly := false;
+		x_InitIndexing_over := false;
+		x_Cycle_Time := false;
+		i_IndexAct_Cnt := int#0;		
+		i_op_mode := 300;
+	end_if;
+			
+(*end_case;*)
+
+(************* Auto Mode Operation (Flexi Mode) **************)
+
+600:
+
+	rl_SetClampPosChanged := rl_SetClampPos;
+
+	rl_SetCuttingPosChanged := rl_SetCuttingPos;
+
+	rl_SetParkingPosChanged := rl_SetParkingPos;
+
+   if ((IX_Cycle_Start or x_Cycle_Start_HMI) and not x_InitIndexing_over(*and(IX_Home_LS and IX_Plug_LS)*)) then
+	   x_HomingDone := false;
+		x_MotorStartDLY := false;
+		x_Cycle_Start_Dly := true;
+		x_AutoCycle_On := true;
+		x_Cycle_Time := true;
+		(*x_Init_Index_Start := true;*)
+		(*i_IndexAct_Cnt:= 0;*)
+		(*x_InitIndexing_over := false;*)
+		i_op_mode := 610;
+	end_if;
+
+	if ((IX_Cycle_Start or x_Cycle_Start_HMI) and x_InitIndexing_over(*and(IX_Home_LS and IX_Plug_LS)*)) then
+		x_HomingDone := false;
+		x_MotorStartDLY := false;
+		x_StartIndexDLY := true;
+		x_AutoCycle_On := true;
+		x_Cycle_Time := true;
+		(*x_Init_Index_Start := true;*)
+		(*i_IndexAct_Cnt:= 0;*)
+		(*x_InitIndexing_over := false;*)
+   end_if;
+
+	if x_IndexOver and x_AutoCycle_On then
+		i_op_mode := 630;
+   end_if;
+
+	if x_Clamp_Mode then
+		i_op_mode := 500;
+	end_if;
+
+	if x_Stacker_Mode then
+		i_op_mode := 700;
+	end_if;
+
+	x_PiercingHeater_OnOff := x_PiercingHeater_OnOff;
+
+610:
+	if TON_CycleStartDly.Q then	
+		x_StartIndexDLY := true;
+		di_IndexDistance := real_to_dint(rl_CountsPerMM * rl_Index_Length);
+		ud_Index_AutoSpeed := dint_to_udint((int_to_dint(i_Index_AutoSpeed) * dint#65536) / dint#60000);
+      (*ud_Index_AutoSpeed := int_to_udint(i_Index_AutoSpeed);*)
+		i_op_mode := 620;
+	end_if;
+
+620:
+	if x_IndexOver then
+		x_IndexStart := false;
+		x_StartIndexDLY := false;
+		i_IndexAct_Cnt := i_IndexAct_Cnt + 1;
+	end_if;
+
+	if i_IndexAct_Cnt = i_IndexSet_Cnt then 
+		x_InitIndexing_over := true;
+		x_IndexLengthComplete := true;
+	   i_op_mode := 630;
+	  else;
+		i_op_mode := 610;
+	end_if;
+
+630:
+	
+	ud_Main_Speed := dint_to_udint((int_to_dint(i_Main_AutoSpeed) * dint#65536) / dint#60000);
+		
+	rl_SetClampPosChanged := rl_SetClampPos + rl_NewClampPos ;
+	rl_NewClampPos := real#0.0;
+
+	rl_SetCuttingPosChanged := rl_SetCuttingPos + rl_NewCuttingPos;
+	rl_NewCuttingPos := real#0.0;
+
+	(*rl_SetParkingPosChanged := rl_SetParkingPos + rl_NewParkingPos;
+	rl_NewParkingPos := real#0.0;*)
+ 
+	if not x_CuttingPosOver then
+	   (*x_MotorStartStckrDly := false;*)
+	  	x_MotorStartDLY := true;
+		(*rl_PrevCuttingPos := rl_SetCuttingPos;
+		rl_NewCuttingPos := real#0.0;*)
+		di_Main_distance := real_to_dint(rl_SetCuttingPos * rl_CountsPerDeg); (*first Cutting position*)
+      (*ud_Main_Speed := dint_to_udint((int_to_dint(i_Main_AutoSpeed) * dint#65536) / dint#60000);*)
+		(*x_MainPosCompleteStckr := false;*)
+		(*x_NextCycleStart := false;*) 
+		i_op_mode := 640;
+	end_if;
+
+	if x_Init_ClampPosOver and rl_PrevClampPos <> rl_SetClampPos and not x_NewClampPos then
+		rl_NewClampPos := (rl_SetClampPos - rl_PrevClampPos);
+		(*diff_pos := rl_NewClampPos;*)
+		rl_PrevClampPos := rl_SetClampPos;
+		x_NewClampPos := true;
+	end_if;
+
+	if x_CuttingPosOver and rl_PrevCuttingPos <> rl_SetCuttingPos and not x_NewCuttingPos then
+		rl_NewCuttingPos := (rl_SetCuttingPos - rl_PrevCuttingPos);
+		(*diff_pos := rl_NewClampPos;*)
+		rl_PrevCuttingPos := rl_SetCuttingPos;
+		x_NewCuttingPos := true;
+	end_if;
+
+	(* if x_ParkingPosOver and rl_PrevParkingPos <> rl_SetParkingPos and not x_NewParkingPos then
+		rl_NewParkingPos := (rl_SetParkingPos - rl_PrevParkingPos);
+		(*diff_pos := rl_NewClampPos;*)
+		(*rl_PrevParkingPos := rl_SetParkingPos;*)
+		x_NewParkingPos := true;
+	end_if;*)
+
+	if not IX_Plug_LS and x_Init_ClampPosOver and x_NextCycleStart and x_ParkingPosDone then 
+	   x_ParkingPositionStart := false;
+		x_Cycle_Time := true;
+		x_ParkingPosOver := true;
+		rl_PrevClampPos := rl_SetClampPos;
+		rl_PrevCuttingPos := rl_SetCuttingPos;
+		rl_PrevParkingPos := rl_SetParkingPos;
+		(*rl_NewClampPos := real#0.0;*)
+		di_Main_distance := real_To_dint((*(real#360.0 + rl_NewClampPos)*)(rl_SetCuttingPosChanged (*+ rl_NewCuttingPos*) - rl_SetParkingPosChanged (*+ rl_NewParkingPos*))(* + rl_NewCuttingPos)*) * rl_CountsPerDeg);
+		(*x_StartIndexDLY := true;*)
+		x_MainPosStartFlexi := true;
+      (*if x_NewClampPos then
+		new_pos := di_Main_distance;
+		end_if;*)
+		x_NewClampPos := false;
+		x_NewCuttingPos := false;
+		x_NewParkingPos := false;
+		x_NextCycleStart := false;
+		rl_SetParkingPosChanged := rl_SetParkingPos + rl_NewParkingPos;
+		rl_NewParkingPos := real#0.0;
+		(*rl_NewCuttingPos := real#0.0;*)
+		i_op_mode := 640;
+	 end_if;
+
+	if (IX_Cycle_Stop or x_Cycle_Stop_HMI) and x_AutoCycle_On then
+		x_HomingAtStop := true;
+		x_AutoCycle_On := false;
+		x_Cycle_Start_Dly := false;
+		x_InitIndexing_over := false;
+		x_Cycle_Time := false;
+		i_IndexAct_Cnt := int#0;		
+		i_op_mode := 300;	
+	end_if;
+
+	x_PiercingHeater_OnOff := x_PiercingHeater_OnOff;
+		
+640:
+	  		
+	if (not IX_Index_LS and (*(x_IndexComplete or x_IndexLengthComplete) and (x_MainPosComplete or x_MainPosDone)*)(x_MainPosStart or x_MainPosStartFlexi) (*and (x_IndexOver or not x_NextCycleStart )*))then
+		x_PlugDownDLY := true;
+   	i_op_mode := 650;
+	end_if;
+	
+	if (IX_Cycle_Stop or x_Cycle_Stop_HMI) and x_AutoCycle_On then
+		x_HomingAtStop := true;
+		x_AutoCycle_On := false;
+		x_Cycle_Start_Dly := false;
+		x_InitIndexing_over := false;
+		x_Cycle_Time := false;
+		i_IndexAct_Cnt := int#0;		
+		i_op_mode := 300;
+	end_if;			
+	(*x_NextCycleStart := false;*)
+
+650:
+	if T_PlugDownDly.Q and (x_IndexComplete or x_IndexLengthComplete) and (x_MainPosComplete or x_MainPosDone) then
+		x_IndexLengthComplete := false;
+		x_IndexComplete := false;
+		x_MainPosComplete:= false;
+		x_MainPosStartFlexi := false;
+		x_FormingDly := true;
+		x_VaccumDly := true;	
+		(*	x_NextCycleStart := false; *)
+		x_CuttingPosOver := true;
+		i_op_mode := 660;
+	end_if;
+	
+	if (IX_Cycle_Stop or x_Cycle_Stop_HMI) and x_AutoCycle_On then
+		x_HomingAtStop := true;
+		x_AutoCycle_On := false;
+		x_Cycle_Start_Dly := false;
+		x_InitIndexing_over := false;
+		x_Cycle_Time := false;
+		i_IndexAct_Cnt := int#0;		
+		i_op_mode := 300;
+	end_if;		
+
+660:
+
+	(*di_Main_distance := real_to_dint((rl_SetClampPosChanged + rl_NewClampPos - rl_SetCuttingPosChanged + rl_NewCuttingPos) * rl_CountsPerDeg);*)
+
+	if T_PlugDownDly.Q and (*not TP_PlugDownTime.Q and*) IX_Plug_LS then
+		(*di_Main_distance := real_to_dint((rl_SetClampPos - rl_SetCuttingPos) * rl_CountsPerDeg);*)
+		di_Main_distance := real_to_dint((rl_SetClampPosChanged (*+ rl_NewClampPos*) - rl_SetCuttingPosChanged (*+ rl_NewCuttingPos*)) * rl_CountsPerDeg);
+		x_MainPosStartFlexi := true;
+		x_StartIndexDLY := true;
+		(*x_EjectionDlyTime := true;
+		x_ScrapWDlyTime := true;*)
+		x_PlugDownDLY := false;
+		i_op_mode := 670;
+	end_if;
+	
+	if (IX_Cycle_Stop or x_Cycle_Stop_HMI) and x_AutoCycle_On then
+		x_HomingAtStop := true;
+		x_AutoCycle_On := false;
+		x_Cycle_Start_Dly := false;
+		x_InitIndexing_over := false;
+		x_Cycle_Time := false;
+		i_IndexAct_Cnt := int#0;		
+		i_op_mode := 300;
+	end_if;		
+
+670:
+	if x_MainPosStartFlexi and (*not TP_PlugDownTime.Q and*) x_MainPosDone then
+		x_MainPosStartFlexi := false;
+		x_Init_ClampPosOver := true;
+		di_Main_distance_Parking := real_to_dint((rl_SetClampPosChanged (*+ rl_NewClampPos*) - rl_SetParkingPosChanged (*+ rl_NewParkingPos*)) * rl_CountsPerDeg);
+		x_ParkingPositionStart := true;
+		x_EjectionDlyTime := true;
+		x_ScrapWDlyTime := true;
+		x_UnwinderDly := true;
+		i_op_mode := 680;
+	end_if;
+	
+	if (IX_Cycle_Stop or x_Cycle_Stop_HMI) and x_AutoCycle_On then
+		x_HomingAtStop := true;
+		x_AutoCycle_On := false;
+		x_Cycle_Start_Dly := false;
+		x_InitIndexing_over := false;
+		x_Cycle_Time := false;
+		i_IndexAct_Cnt := int#0;		
+		i_op_mode := 300;
+	end_if;		
+
+680:
+
+	ud_Index_AutoSpeed := dint_to_udint((int_to_dint(i_Index_AutoSpeed) * dint#65536) / dint#60000);
+	di_IndexDistance := real_to_dint(rl_CountsPerMM * rl_Index_Length);
+
+	if T_EjectionDlyTime.Q then
+		(*x_StartIndexDLY := true;*) 
+		x_EjectionDlyTime := false;
+		x_NextCycleStart := true;
+		x_Cycle_Time := false;
+		i_op_mode := 630;
+	end_if;
+
+	if (IX_Cycle_Stop or x_Cycle_Stop_HMI) and x_AutoCycle_On then
+		x_HomingAtStop := true;
+		x_AutoCycle_On := false;
+		x_Cycle_Start_Dly := false;
+		x_InitIndexing_over := false;
+		x_Cycle_Time := false;
+		i_IndexAct_Cnt := int#0;		
+		i_op_mode := 300;
+	end_if;
+
+(************* Auto Mode Operation (Stacker Mode) ************)
+
+700:
+	if ((IX_Cycle_Start or x_Cycle_Start_HMI) and not x_InitIndexing_over(*and(IX_Home_LS and IX_Plug_LS)*)) then
+	   x_HomingDone := false;
+		x_MotorStartDLY := false;
+		x_Cycle_Start_Dly := true;
+		x_AutoCycle_On := true;
+		x_Cycle_Time := true;
+		(*x_Init_Index_Start := true;*)
+		(*i_IndexAct_Cnt:= 0;*)
+		(*x_InitIndexing_over := false;*)
+		i_op_mode := 710;
+	end_if;
+
+	if ((IX_Cycle_Start or x_Cycle_Start_HMI) and x_InitIndexing_over(*and(IX_Home_LS and IX_Plug_LS)*)) then
+		x_HomingDone := false;
+		x_MotorStartDLY := false;
+		x_StartIndexDLY := true;
+		x_AutoCycle_On := true;
+		x_Cycle_Time := true;
+		(*x_Init_Index_Start := true;*)
+		(*i_IndexAct_Cnt:= 0;*)
+		(*x_InitIndexing_over := false;*)
+   end_if;
+
+	if x_IndexOver and x_AutoCycle_On then
+		i_op_mode := 730;
+   end_if;
+
+	if x_Clamp_Mode then
+		i_op_mode := 500;
+	end_if;
+
+	if x_Flexi_Mode then
+		i_op_mode := 600;
+	end_if;
+
+	x_PiercingHeater_OnOff := x_PiercingHeater_OnOff;
+
+710:
+	if TON_CycleStartDly.Q then
+		x_StartIndexDLY := true;
+		di_IndexDistance := real_to_dint(rl_CountsPerMM * rl_Index_Length);
+		ud_Index_AutoSpeed := dint_to_udint((int_to_dint(i_Index_AutoSpeed) * dint#65536) / dint#60000);
+      (*ud_Index_AutoSpeed := int_to_udint(i_Index_AutoSpeed);*)
+		i_op_mode := 720;
+	end_if;
+
+720:
+	if x_IndexOver then
+		x_IndexStart := false;
+		x_StartIndexDLY := false;
+		i_IndexAct_Cnt := i_IndexAct_Cnt + 1;
+	end_if;
+
+	if i_IndexAct_Cnt = i_IndexSet_Cnt then 
+		x_InitIndexing_over := true;
+		x_IndexLengthComplete := true;
+	   i_op_mode := 730;
+	  else;
+		i_op_mode := 710;
+	end_if;
+
+730:
+
+	ud_Main_Speed := dint_to_udint((int_to_dint(i_Main_AutoSpeed) * dint#65536) / dint#60000);
+
+	if not x_Init_ClampPosOver then
+	   x_MotorStartStckrDly := false;
+	  	x_MotorStartDLY := true;
+		rl_PrevClampPos := rl_SetClampPos;
+		rl_NewClampPos := real#0.0;
+		di_Main_distance := real_to_dint(rl_SetClampPos * rl_CountsPerDeg); (*first clamp position*)
+      (*ud_Main_Speed := dint_to_udint((int_to_dint(i_Main_AutoSpeed) * dint#65536) / dint#6000);*)
+		x_MainPosCompleteStckr := false;
+		x_NextCycleStart := false; 
+		i_op_mode := 740;
+	end_if;
+
+	if x_Init_ClampPosOver and rl_PrevClampPos <> rl_SetClampPos and not x_NewClampPos then
+		rl_NewClampPos := (rl_SetClampPos - rl_PrevClampPos);
+		(*diff_pos := rl_NewClampPos;*)
+		rl_PrevClampPos := rl_SetClampPos;
+		x_NewClampPos := true;
+	end_if;
+
+	if not IX_Plug_LS and x_Init_ClampPosOver and x_NextCycleStart and x_MainPosCompleteStckr then
+		x_Cycle_Time := true;
+	   di_Main_distance := real_To_dint((*(real#360.0 + rl_NewClampPos)*) rl_SetClampPos * rl_CountsPerDeg);
+		x_StartIndexDLY := true;
+		x_MotorStartDLY := true;
+		x_MainPosCompleteStckr := false; 
+		rl_NewClampPos := real#0.0;
+      (*if x_NewClampPos then
+		new_pos := di_Main_distance;
+		end_if;*)
+		x_NewClampPos := false;
+		x_NextCycleStart := false;
+		i_op_mode := 740;
+	 end_if;
+
+	if (IX_Cycle_Stop or x_Cycle_Stop_HMI) and x_AutoCycle_On then
+		x_HomingAtStop := true;
+		x_AutoCycle_On := false;
+		x_Cycle_Start_Dly := false;
+		x_InitIndexing_over := false;
+		x_Cycle_Time := false;
+		i_IndexAct_Cnt := int#0;	
+		i_op_mode := 300;	
+	end_if;
+
+	x_PiercingHeater_OnOff := x_PiercingHeater_OnOff;
+		
+740:	  		
+	if (not IX_Index_LS and (*(x_IndexComplete or x_IndexLengthComplete) and x_MainPosComplete*)x_MainPosStart) (*and (x_IndexOver or not x_NextCycleStart )*)then
+		x_PlugDownDLY := true;
+   	i_op_mode := 750;
+	end_if;
+	
+	if (IX_Cycle_Stop or x_Cycle_Stop_HMI) and x_AutoCycle_On then
+		x_HomingAtStop := true;
+		x_AutoCycle_On := false; 
+		x_Cycle_Start_Dly := false;
+		x_InitIndexing_over := false;
+		x_Cycle_Time := false;
+		i_IndexAct_Cnt := int#0;	
+		i_op_mode := 300;
+	end_if;			
+		(*x_NextCycleStart := false;*)
+
+750:
+	if T_PlugDownDly.Q and (x_IndexComplete or x_IndexLengthComplete) and x_MainPosComplete then
+		x_IndexLengthComplete := false;
+		x_IndexComplete := false;
+		x_MainPosComplete:= false;
+		x_FormingDly := true;
+		x_VaccumDly := true;	
+		(*	x_NextCycleStart := false; *)
+		x_Init_ClampPosOver := true;
+		i_op_mode := 760;
+	end_if;
+	
+	if (IX_Cycle_Stop or x_Cycle_Stop_HMI) and x_AutoCycle_On then
+		x_HomingAtStop := true;
+		x_AutoCycle_On := false;
+		x_Cycle_Start_Dly := false;
+		x_InitIndexing_over := false;
+		x_Cycle_Time := false;
+		i_IndexAct_Cnt := int#0;	
+		i_op_mode := 300;
+	end_if;		
+
+760:
+	if T_PlugDownDly.Q and (*not TP_PlugDownTime.Q and*) IX_Plug_LS then
+		di_Main_distance := real_to_dint((real#360.0 - rl_PrevClampPos) * rl_CountsPerDeg);
+		x_MotorStartStckrDly := true;
+		x_EjectionDlyTime := true;
+		x_ScrapWDlyTime := true;
+		x_UnwinderDly := true;
+		x_PlugDownDLY := false;
+		i_op_mode := 770;
+	end_if;
+	
+	if (IX_Cycle_Stop or x_Cycle_Stop_HMI) and x_AutoCycle_On then
+		x_HomingAtStop := true;
+		x_AutoCycle_On := false;
+		x_Cycle_Start_Dly := false;
+		x_InitIndexing_over := false;
+		x_Cycle_Time := false;
+		i_IndexAct_Cnt := int#0;	
+		i_op_mode := 300;
+	end_if;		
+
+770:
+
+	ud_Index_AutoSpeed := dint_to_udint((int_to_dint(i_Index_AutoSpeed) * dint#65536) / dint#60000);
+	di_IndexDistance := real_to_dint(rl_CountsPerMM * rl_Index_Length);
+
+	if T_EjectionDlyTime.Q then
+		(*x_StartIndexDLY := true;*) 
+		x_EjectionDlyTime := false;
+		x_NextCycleStart := true;
+		x_Cycle_Time := false;
+		i_op_mode := 730;
+	end_if;
+
+	if (IX_Cycle_Stop or x_Cycle_Stop_HMI) and x_AutoCycle_On then
+		x_HomingAtStop := true;
+		x_AutoCycle_On := false;
+		x_Cycle_Start_Dly := false;
+		x_InitIndexing_over := false;
+		x_Cycle_Time := false;	
+		i_IndexAct_Cnt := int#0;
+		i_op_mode := 300;
+	end_if;
+
+end_case;
+
+(******************************** Timers ********************************)
+(************************************************************************)
+if IX_Auto_Manual_SW then
+
+(**************** Index Start timers ****************)
+T_IndexDly(IN:=x_StartIndexDLY,PT:=t_Index_Delay);
+x_IndexStart:= T_IndexDly.Q;
+
+if T_IndexDly.Q and x_IndexOver and not x_IndexComplete then;
+	x_IndexComplete := true;
+	x_StartIndexDLY := false;
+end_if;
+
+(**************** Main Motor Start Timer ****************)
+T_MotorStartDly(IN:=x_MotorStartDLY,PT:=t_Motor_StartDly);
+x_MainPosStart:= T_MotorStartDly.Q;
+
+if T_MotorStartDly.Q and x_MainPosDone and not x_MainPosComplete then;
+	x_MainPosComplete := true;
+	x_MotorStartDLY := false;
+end_if;
+
+(**************** Main Motor Start Timer (Stacker Mode)****************)
+
+(*TON_MotorStartStckrDly(IN:=x_MotorStartStckrDly,PT:=t_MotorStartStckrDly);
+x_MainPosStartStckr:=TON_MotorStartDlyStckr.Q;
+ET_MainPosStartStckr:=TON_MotorStartDlyStckr.ET;
+
+if TON_MotorStartDlyStckr.Q and x_MainPosDone and not x_MainPosComplete then;
+	x_MainPosComplete := true;
+	x_MotorStartStckrDly := false;
+end_if;*)
+
+TON_MotorStckrDly(IN:=x_MotorStartStckrDly,PT:=t_MotorStartStckrDly);
+x_MainPosStartStckr:=TON_MotorStckrDly.Q;
+t_MainPosStartStckr:=TON_MotorStckrDly.ET;
+
+if TON_MotorStckrDly.Q and x_MainPosDone and not x_MainPosCompleteStckr then;
+	x_MainPosCompleteStckr := true;
+	x_MotorStartStckrDly := false;
+end_if;
+
+(*TON_2(IN:=x_MotorStartStckrDly,PT:=t#1s);
+x_MainPosStartStckr:=TON_2.Q;
+t_MainPosStartStckr:=TON_2.ET;
+
+if TON_2.Q then;
+	x_MotorStartStckrDly := false;
+end_if;*)
+
+(**************** Plug Operation Timer ****************)
+if t_Plug_OnTime <= t#0.2s then
+	t_Plug_OnTime_Act := t_Plug_OnTime + t#0.1s;
+else
+	t_Plug_OnTime_Act := t_Plug_OnTime;
+end_if;
+
+(*if t_Plug_OnTime <= t#0.8s then
+	t_Plug_OnTime_Act := t#1.0s;
+else
+	t_Plug_OnTime_Act := t_Plug_OnTime;
+end_if;*)
+
+T_PlugDownDly(IN:= x_PlugDownDLY,PT:=t_Plug_DownDly);
+
+TP_PlugDownTime(IN:=T_PlugDownDly.Q,PT:=t_Plug_OnTime_Act);
+QX_Plug_UpDown :=TP_PlugDownTime.Q;
+
+(*if T_PlugDownDly.Q and TP_PlugDownTime.Q then
+x_PlugDownDLY := false;
+end_if;*)
+
+(**************** Forming Operation Timer ****************)
+T_FormingDly(IN:=x_FormingDly,PT:=t_Forming_DlyTime);
+
+TP_FormingOnTime(IN:=T_FormingDly.Q ,PT:=t_Forming_OnTime);
+QX_Forming_Air:=TP_FormingOnTime.Q and t_Forming_OnTime <> t#0s;
+
+if T_FormingDly.Q and TP_FormingOnTime.Q then
+	x_FormingDly := false;
+end_if;
+
+(**************** Vaccum Operation Timer ****************)
+T_VaccumDly(IN:=x_VaccumDly,PT:=t_Vaccum_DlyTime);
+
+TP_VaccumOnTime(IN:=T_VaccumDly.Q,PT:=t_Vaccum_OnTime);
+QX_Vaccum:=(TP_VaccumOnTime.Q and x_Vaccum_HMI and t_Vaccum_OnTime <> t#0s);
+
+if T_VaccumDly.Q and TP_VaccumOnTime.Q then
+	x_VaccumDly := false;
+end_if;
+
+(**************** Unwinder Operation Timer ****************)
+
+TON_UnwinderDlyTime(IN:=x_UnwinderDly,PT:=t_Unwinder_DlyTime);
+(* BOOL :=TON_UnwinderDlyTime.Q;*)
+(* TIME :=TON_UnwinderDlyTime.ET;*)
+
+TP_UnwinderOnTime(IN:=TON_UnwinderDlyTime.Q,PT:=t#1s);
+QX_Unwinder:=(TP_UnwinderOnTime.Q and x_Unwinder_HMI and not IX_Unwinder_LS);
+(* TIME :=TP_UnwinderOnTime.ET;*)
+
+if TON_UnwinderDlyTime.Q and TP_UnwinderOnTime.Q then
+	x_UnwinderDly := false;
+end_if;
+
+(**************** Ejector Operation Timer ****************)
+T_EjectionDlyTime(IN:=x_EjectionDlyTime,PT:=t_Ejection_DlyTime);
+
+TP_EjectionOnTime(IN:=T_EjectionDlyTime.Q,PT:=t_Ejection_OnTime);
+QX_Ejection:=TP_EjectionOnTime.Q and t_Ejection_OnTime <> t#0s;
+
+if T_EjectionDlyTime.Q and TP_EjectionOnTime.Q then
+	x_EjectionDlyTime := false;
+end_if;
+
+(**************** Scrap Winder Operation Timer ****************)
+T_ScrapWDlyTime(IN:=x_ScrapWDlyTime,PT:=t_ScrapWinder_DlyTime);
+
+TP_ScrapWOnTime(IN:=T_ScrapWDlyTime.Q,PT:=t_ScrapWinder_OnTime);
+QX_Scrap_Winder:=TP_ScrapWOnTime.Q and t_ScrapWinder_OnTime <> t#0s;
+
+if T_ScrapWDlyTime.Q and TP_ScrapWOnTime.Q then
+   x_ScrapWDlyTime := false;
+end_if;
+
+(**************** Lid Ejector Operation Timer ****************)
+
+T_LidEjectionDlyTime(IN:=x_LidEjectionDlyTime,PT:=t_LidEjection_DlyTime);
+
+TP_LidEjectionOnTime(IN:=T_LidEjectionDlyTime.Q,PT:=t_LidEjection_OnTime);
+QX_Lid_Eject:=TP_LidEjectionOnTime.Q and t_LidEjection_OnTime <> t#0s;
+
+if T_LidEjectionDlyTime.Q and TP_LidEjectionOnTime.Q then
+   x_LidEjectionDlyTime := false;
+end_if;
+
+(**************** Homing Operation After Cycle Stop Timer ****************)
+
+TON_Home_CycleStop(IN:=x_HomingAtStop,PT:=t#3s);
+(* BOOL :=TON_Home_CycleStop.Q;*)
+(* TIME :=TON_Home_CycleStop.ET;*)
+
+(**************** Cycle Start Delay Timer ****************)
+
+TON_CycleStartDly(IN:=x_Cycle_Start_Dly,PT:=t_Cycle_Start_Dly);
+(* BOOL :=TON_CycleStartDly.Q;*)
+(* TIME :=TON_CycleStartDly.ET;*)
+
+(**************** Strokes Per Minute Calculation ****************)
+
+CTU_StrokesPerMinute(CU:=(x_AutoCycle_On and (IX_MainHome_LS or x_ParkingPosDone)),
+RESET:=(IX_Cycle_Stop or x_Cycle_Stop_HMI or TON_StrokesPerMinute.Q or not x_AutoCycle_On)(*x_StrokesCounterReset*)(* and x_AutoCycle_On*),
+PV:=int#200);
+(* BOOL :=CTU_StrokesPerMinute.Q;*)
+i_Strokes_Actual:=CTU_StrokesPerMinute.CV;
+
+TON_StrokesPerMinute(IN:=(x_AutoCycle_On and not TON_StrokesPerMinute.Q),PT:=t#60s);
+(* BOOL :=TON_StrokesPerMinute.Q;*)
+(* TIME :=TON_StrokesPerMinute.ET;*)
+
+i_StrokesPerMinute:=SEL(TON_StrokesPerMinute.Q, i_StrokesPerMinute, i_Strokes_Actual);
+
+(*if not x_AutoCycle_On then
+	x_StrokesCounterReset := true;
+else
+	x_StrokesCounterReset := false;
+end_if;*)
+
+(**************** Cycle Time Calculation ****************)
+
+TON_Cycle_Time(IN:=x_Cycle_Time,PT:=t#99s);
+(* BOOL :=TON_Cycle_Time.Q;*)
+t_Cycle_Time_Actual:=TON_Cycle_Time.ET;
+
+if TON_Cycle_Time.ET > t#0ms then
+	t_Cycle_Time_Actual_2 := t_Cycle_Time_Actual;
+end_if;
+
+R_TRIG_Cycle_Time(CLK:=x_NextCycleStart); 
+(* BOOL :=R_TRIG_Cycle_Time.Q;*)
+
+(*t_Cycle_Time_Past:=SEL_TIME (R_TRIG_Cycle_Time.Q, t_Cycle_Time_Past, t_Cycle_Time_Actual_2);*)
+
+(**************** Total Production Calculation ****************)
+
+R_TRIG_Total_Production(CLK:=x_NextCycleStart);
+
+if R_TRIG_Total_Production.Q then
+	di_Total_Production := (int_to_dint(i_No_of_Cavity) + di_Total_Production);
+end_if;
+
+x_Total_Prod_AutoReset := (di_Total_Production > dint#2000000000);
+
+(*di_Total_Production := SEL_DINT ((x_Total_Prod_Reset OR x_Total_Prod_AutoReset), di_Total_Production, DINT#0);*)
+
+(**************** Shift Production Calculation ****************)
+
+TON_Shift_Prod_Timer(IN:=not TON_Shift_Prod_Timer.Q,PT:=t#28800s);
+(* BOOL :=TON_Shift_Prod_Timer.Q;*)
+t_Shift_Prod_TimerET:=TON_Shift_Prod_Timer.ET;
+
+if TON_Shift_Prod_Timer.Q then
+	di_Shift_Production := di_Total_Production;
+end_if;
+
+x_Shift_Prod_AutoReset := (di_Shift_Production > dint#2000000000);
+
+(*di_Shift_Production := SEL_DINT((x_Shift_Prod_Reset OR x_Shift_Prod_AutoReset), di_Shift_Production, DINT#0);*)
+
+(**************** Balance Production Calculation ****************)
+
+if (*x_AutoCycle_On and*) (di_Target_Production > di_Total_Production) then
+	di_Balance_Production := (di_Target_Production - di_Total_Production);
+else
+	di_Balance_Production := dint#0;
+end_if;
+
+(**************** Target Production Complete Alarm ****************)
+
+if (di_Total_Production >= di_Target_Production) then
+	x_Target_Prod_Achieved := true;
+else
+	x_Target_Prod_Achieved := false;
+end_if;
+
+TP_Buzzer1(IN:=x_Target_Prod_Achieved,PT:=t#5s);
+QX_Buzzer1 := TP_Buzzer1.Q;
+
+(* TIME :=TP_Buzzer1.ET;*)
+
+(**************** Machine Running Time Calculation ****************)
+
+TON_Second_Timer(IN:=(x_AutoCycle_On and not TON_Second_Timer.Q),PT:=t#1s);
+(* BOOL :=TON_Second_Timer.Q;*)
+(* TIME :=TON_Second_Timer.ET;*)
+
+CTU_Second_Time(CU:=TON_Second_Timer.Q,RESET:=CTU_Second_Time.Q,PV:=60);
+(* BOOL :=CTU_Second_Time.Q;*)
+i_Second_Time:=CTU_Second_Time.CV;
+
+CTU_Minute_Time(CU:=CTU_Second_Time.Q,RESET:=CTU_Minute_Time.Q,PV:=60);
+(* BOOL :=CTU_Minute_Time.Q;*)
+i_Minute_Time:=CTU_Minute_Time.CV;
+
+CTU_Hour_Time(CU:=CTU_Minute_Time.Q,RESET:=CTU_Hour_Time.Q,PV:=9999);
+(* BOOL :=CTU_Hour_Time.Q;*)
+i_Hour_Time:=CTU_Hour_Time.CV;
+
+end_if;
+
+(**************** Piercing Heater On-Off Logic ****************)
+
+R_TRIG_Piercing_Heater(CLK:=x_PiercingHeater_OnOff);
+(* BOOL :=R_TRIG_Piercing_Heater.Q;*)
+
+TP_PiercingHeater_On_Timer(IN:=(R_TRIG_Piercing_Heater.Q or (F_TRIG_PiercingHeater_Of_Timer.Q and x_PiercingHeater_OnOff)),PT:=t_PiercingHeater_On_Time);
+QX_Piercing:=TP_PiercingHeater_On_Timer.Q;
+(* TIME :=TP_PiercingHeater_On_Timer.ET;*)
+
+F_TRIG_PiercingHeater_On_Timer(CLK:=TP_PiercingHeater_On_Timer.Q);
+(* BOOL :=F_TRIG_PiercingHeater_On_Timer.Q;*)
+
+TP_PiercingHeater_Off_Timer(IN:=F_TRIG_PiercingHeater_On_Timer.Q,PT:=t_PiercingHeater_Off_Time);
+(* BOOL :=TP_PiercingHeater_Off_Timer.Q;*)
+(* TIME :=TP_PiercingHeater_Off_Timer.ET;*)
+
+if TP_PiercingHeater_Off_Timer.Q then 
+	QX_Piercing :=false;
+end_if;
+
+F_TRIG_PiercingHeater_Of_Timer(CLK:=TP_PiercingHeater_Off_Timer.Q);
+(* BOOL :=F_TRIG_PiercingHeater_Of_Timer.Q;*)
+ 
