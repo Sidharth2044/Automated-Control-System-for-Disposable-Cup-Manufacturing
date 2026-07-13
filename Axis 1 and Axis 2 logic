@@ -83,19 +83,6 @@ END_VAR
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 PROGRAM CY_POWER_AXIS2
 VAR
 	//_Axis_2_TMPL	AXIS_TMPL
